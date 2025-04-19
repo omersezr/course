@@ -1,0 +1,73 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# rfc-003-course-assignment.mdc
+
+## Title
+RFC 003 – Course Creation & Assignment
+
+## Summary
+This RFC defines the creation, management, and assignment process of educational courses. Each course is a collection of ordered videos and can be marked as mandatory. Courses can be assigned to users by Admins or Team Leads.
+
+---
+
+## Goals
+- Enable course creation from existing videos
+- Allow structured course content with metadata
+- Support assigning courses to users and teams
+- Display progress bar based on video completion
+
+## Database Tables
+### `courses`
+| Field         | Type      | Description                     |
+|---------------|-----------|---------------------------------|
+| id            | uuid      | Primary key                     |
+| title         | text      | Course title                    |
+| description   | text      | Course summary                  |
+| is_mandatory  | boolean   | If course is required           |
+| created_by    | uuid      | Creator user ID                 |
+| created_at    | timestamp | Created time                    |
+
+### `course_videos`
+| Field       | Type    | Description                |
+|-------------|---------|----------------------------|
+| course_id   | uuid    | FK to courses              |
+| video_id    | uuid    | FK to videos               |
+| order       | int     | Order of appearance        |
+
+### `course_assignments`
+| Field       | Type    | Description              |
+|-------------|---------|--------------------------|
+| user_id     | uuid    | FK to profiles           |
+| course_id   | uuid    | FK to courses            |
+| assigned_at | timestamp | Timestamp               |
+
+## Frontend UI
+- Course Builder UI (multi-select video modal)
+- Course Listing Page (title, duration, status)
+- Course Detail Page (videos, metadata, progress bar)
+
+## Role Permissions
+- Admin: Full CRUD and assignment rights
+- Team Lead: Create/edit/assign within team scope
+- User: View assigned courses only
+
+## Validation
+- At least one video must be selected to create course
+- Duplicate video entries in same course are disallowed
+
+## Timeline
+**Sprint 3**
+- Setup course, course_videos, and course_assignments tables
+- Implement course creation UI
+- Enable assignment UI and dashboard integration
+
+## Status
+📌 `Planned`
+
+## Related Docs
+- `features.mdc`
+- `rfc-002-video-management.mdc`
+- `app_flow_document.mdc` 

@@ -1,0 +1,116 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Project Overview
+
+The backend structure is designed for an educational video management system similar to Udemy, integrated within an e-commerce portal but extracted as a standalone product. The system uses a monolithic, modular architecture to allow future scalability and possible service extraction when needed.
+
+Technologies
+
+Framework: Next.js API Routes (Backend via Next.js functions)
+
+Database: Supabase (PostgreSQL with Row-Level Security)
+
+Authentication: Supabase Auth
+
+API Style: REST
+
+Core Concepts
+
+Modular Monolith: Each domain (video, course, user, role, document) is structured in isolated modules within the monolith to allow future microservice extraction.
+
+CQRS pattern will be optionally applied inside modules where needed.
+
+Modules
+
+User Management
+
+User registration via Supabase Auth
+
+Role assignment by Admin (User, Team Lead, Admin, Guest)
+
+Guest users can view limited content
+
+Role-Based Access Control (RBAC)
+
+Admin: Full access, including user and role management
+
+Team Lead: Can create/manage courses, assign videos to users
+
+User: Can view assigned videos and courses
+
+Guest: Can view limited content only
+
+Video Management
+
+Video metadata includes: title, description, YouTube URL/ID, duration, category, tags
+
+Automatic data fetch from YouTube API on video add
+
+Filter and search by category/tags/keywords
+
+Video preview available
+
+Course Management
+
+Courses contain ordered list of videos
+
+Metadata: title, description, isMandatory
+
+Course progress tracking based on video completion
+
+Assignment Management
+
+Assign video(s) or course(s) to users
+
+Bulk assignments supported
+
+Tracking of assigned items and completion status
+
+Video Watch Log
+
+Start time, watched duration, complete flag per user/video
+
+Watch history used to calculate course progress
+
+Comments
+
+Users can leave comments per video
+
+Admin moderation supported
+
+Notification System
+
+New assignment notifications
+
+Reminders for incomplete or overdue content
+
+Document System (Markdown-Based)
+
+Notion-style markdown editor for text-based course materials
+
+Documents can be:
+
+Linked to courses
+
+Available as general learning resources
+
+Future Scalability
+
+Easily extractable modules for microservice transition
+
+All modules follow clear boundaries and interface contracts
+
+Events can be emitted internally if needed for future message-based systems (Kafka, PubSub, etc.)
+
+Deployment
+
+Vercel (Next.js hosting)
+
+Supabase (hosted backend + DB)
+
+Summary
+
+This backend structure provides a clean, scalable foundation with Supabase and Next.js. By using a modular monolithic pattern, we ensure fast MVP development while leaving room for future transformation into a more distributed architecture. 

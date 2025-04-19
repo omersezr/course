@@ -1,0 +1,78 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# features.mdc
+
+## Core Features
+
+### 🔐 Authentication & Role Management
+- Supabase-based Auth
+- Default role: `user`
+- Admin can assign `team-lead` or `admin`
+- Role-based access to all modules
+
+### 🎬 Video Management
+- Add video via YouTube URL
+- Auto-fetch title, duration, thumbnail
+- Tag & category support
+- Admin approval toggle for videos
+
+### 📁 Category System
+- Create/edit/delete categories
+- Filter & organize video content
+- Show category details (description, topic link)
+- Enable categories for homepage carousel
+
+### 🎓 Course Management
+- Create courses with multiple videos
+- Course metadata (title, description, isMandatory, deadline)
+- Assign courses to users or teams
+- Track course completion rate
+
+### 🧑‍🏫 Assignment & Tracking
+- Assign individual videos or entire courses
+- Track watch duration and completion per user
+- Calculate progress % per course
+- 📬 Notify users via in-app and email on each assignment
+
+### 📊 Reporting Dashboard
+- Top viewed videos
+- Most/least active users
+- Course completion by user/team
+- Incomplete mandatory courses
+
+### 💬 Comments & Feedback
+- User comments per video
+- Feedback types: useful / incomplete / incorrect
+- Admin/Team Lead can delete inappropriate comments
+
+### 🔔 Notification System
+- Notify users about new assignments
+- Reminder for uncompleted courses
+- Badge icon on navbar
+- Email notifications for all important assignment events
+
+### 🧠 Video Recommendations
+- Suggest top 5 related videos via YouTube API
+- Shown when creating video or category
+
+### 👁️ YouTube Insights
+- Pull view count, like count using YouTube API
+- Display insights on video detail page
+
+### 🗂️ Category Enhancements
+- Set order of categories
+- Add helpful links to category
+- Manage homepage carousel appearance
+
+### 📝 Transcript System
+- Upload or paste video transcripts (.txt or markdown)
+- Show in collapsible section below video
+- Download transcript file
+- 🔄 AI summary & doc generation planned (Phase 2)
+
+---
+
+This document defines the complete set of features tracked in the RFC and implementation plan for the learning module. 

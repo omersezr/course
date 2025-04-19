@@ -1,0 +1,69 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# rfc-005-document-system.mdc
+
+## Title
+RFC 005 – Markdown Document System (Notion-like)
+
+## Summary
+This RFC defines the structure and integration of a document system for course-related content. It enables course creators to include markdown-based documents for richer educational materials.
+
+---
+
+## Goals
+- Create markdown-based documents using WYSIWYG editor (TipTap)
+- Allow documents to be linked to courses or made globally available
+- Render documents with rich formatting (headings, code blocks, lists, etc.)
+- (Phase 2) Enable user note-taking or commenting
+
+## Database Tables
+### `documents`
+| Field         | Type      | Description                         |
+|---------------|-----------|-------------------------------------|
+| id            | uuid      | Primary key                         |
+| title         | text      | Document title                      |
+| slug          | text      | URL-friendly identifier             |
+| content       | text      | Markdown or JSON-based document     |
+| linked_course | uuid      | Nullable FK to `courses`            |
+| is_global     | boolean   | If true, shown in general library   |
+| created_by    | uuid      | Creator user ID                     |
+| created_at    | timestamp | Created timestamp                   |
+
+## Editor Component
+- Use TipTap editor (customizable Notion-style experience)
+- Support standard markdown blocks (headings, bold, italic, lists, code)
+- Optional image and link embeds
+
+## Viewer Component
+- Render formatted document content
+- Sidebar for in-page navigation (optional)
+
+## Role Permissions
+- Admin/Team Lead: Create, edit, delete documents
+- User: View linked documents in courses, global docs
+- Guest: (Optional Phase 2) View limited docs
+
+## UI Locations
+- Course Detail Page: If course has documents, show them in a tab
+- Global Docs Library: Available to all roles (based on access level)
+
+## Validation
+- Title and content required
+- Slug must be unique
+
+## Timeline
+**Sprint 5**
+- Create `documents` table
+- Integrate TipTap editor in admin/lead UI
+- Implement document viewer and link to courses
+
+## Status
+📌 `Planned`
+
+## Related Docs
+- `rfc-003-course-assignment.mdc`
+- `app_flow_document.mdc`
+- `features.mdc` 

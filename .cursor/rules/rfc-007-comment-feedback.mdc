@@ -1,0 +1,64 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# rfc-007-comment-feedback.mdc
+
+## Title
+RFC 007 – Comment & Feedback System
+
+## Summary
+This RFC defines the design and implementation of a comment and feedback system for videos. Users will be able to write comments, provide structured feedback, and interact with video content more effectively.
+
+---
+
+## Goals
+- Allow users to write comments under videos
+- Enable marking feedback as "useful", "incomplete", or "incorrect"
+- Admins and Team Leads can delete inappropriate comments
+
+## Database Tables
+### `comments`
+| Field         | Type      | Description                          |
+|---------------|-----------|--------------------------------------|
+| id            | uuid      | Primary key                          |
+| user_id       | uuid      | FK to `profiles`                     |
+| video_id      | uuid      | FK to `videos`                       |
+| content       | text      | Comment body                         |
+| feedback_type | text      | ENUM: 'useful', 'incomplete', 'incorrect' (nullable) |
+| created_at    | timestamp | Created time                         |
+
+## UI Implementation
+- Comments listed under each video detail page
+- Comment input box for logged-in users
+- Radio button or dropdown for selecting feedback type
+- Admin/Team Lead sees delete button on each comment
+
+## Role Permissions
+| Role        | Permissions                          |
+|-------------|---------------------------------------|
+| Admin       | View, create, delete all comments     |
+| Team Lead   | View, create, delete within team      |
+| User        | View and create own comments          |
+| Guest       | ❌ No access to commenting             |
+
+## Validation Rules
+- Comment content must be 3+ characters
+- One feedback_type per comment (optional)
+- Max comment length: 1000 characters
+
+## Timeline
+**Sprint 7**
+- Create `comments` table
+- Build comment UI component
+- Integrate feedback selection dropdown
+- Add moderation (delete button) logic for authorized users
+
+## Status
+📌 `Planned`
+
+## Related Docs
+- `rfc-002-video-management.mdc`
+- `cursor_project_rules.mdc`
+- `features.mdc` 

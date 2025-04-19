@@ -1,0 +1,64 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# rfc-009-video-recommendation.mdc
+
+## Title
+RFC 009 – Video Recommendation & Category Suggestions
+
+## Summary
+This RFC defines a system to provide video recommendations based on YouTube API suggestions and category relevance. The goal is to assist Admins and Team Leads when adding new content by suggesting related videos.
+
+---
+
+## Goals
+- Suggest related YouTube videos when adding a new category or video
+- Enable automatic population of suggested video list via API
+- Improve content discovery and save manual search time for content managers
+
+## Use Cases
+- Admin creates a new category → sees 5 recommended videos based on category name
+- Admin adds a new video → system fetches related YouTube videos via keywords
+- Team Lead wants to expand a course → system recommends similar videos
+
+## External API
+- **YouTube Data API v3**
+- Endpoint: `https://www.googleapis.com/youtube/v3/search`
+- Query Parameters: `q`, `maxResults=5`, `type=video`, `key=API_KEY`
+
+## UI Implementation
+- "Add Video" modal shows sidebar with 5 suggestions
+- "Create Category" modal optionally displays suggested videos (inline or tab)
+- Each suggestion includes:
+  - Thumbnail
+  - Title
+  - Channel
+  - Add to Library button
+
+## Role Permissions
+| Role        | Permissions                    |
+|-------------|---------------------------------|
+| Admin       | See and select suggested videos |
+| Team Lead   | See suggestions only            |
+| User        | ❌ No access                    |
+
+## Validation Rules
+- Suggestions must be limited to `5` per query
+- Only videos with public visibility are accepted
+- No duplicates with existing video URLs
+
+## Timeline
+**Sprint 9**
+- Set up YouTube API integration
+- Build suggestion component in Add Video UI
+- Add selection-to-import logic for Admins
+
+## Status
+📌 `Planned`
+
+## Related Docs
+- `rfc-002-video-management.mdc`
+- `rfc-008-reporting-dashboard.mdc`
+- `cursor_project_rules.mdc` 

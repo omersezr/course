@@ -1,0 +1,68 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Overview
+
+This document outlines the complete technology stack used for the development and deployment of the educational video management system. The stack is selected for speed, scalability, ease of integration with AI tooling (e.g., Cursor), and support for modern web development practices.
+
+Frontend
+
+Framework: Next.js (React-based)
+
+Styling: Tailwind CSS + SCSS Modules
+
+Component Library: shadcn/ui (Headless UI + Radix)
+
+State Management: React Context API (or optional Zustand in future)
+
+Markdown Editor: TipTap (Notion-style WYSIWYG for documents)
+
+Video Embed: YouTube iframe API
+
+Form Handling: React Hook Form + Zod
+
+Routing: Next.js App Router (app directory)
+
+Auth Handling: Supabase Auth hooks (client-side session)
+
+Backend
+
+Platform: Next.js API Routes (Edge-capable, serverless)
+
+Database: Supabase (PostgreSQL)
+
+Authentication: Supabase Auth (JWT-based)
+
+Access Control: Supabase Row Level Security (RLS)
+
+API Protocol: REST (modular route handlers per feature)
+
+Validation: Zod (shared client/server schemas)
+
+Email/OTP: Supabase Magic Link & Email login
+
+DevOps & Hosting
+
+Frontend + API Hosting: Vercel
+
+Database & Auth: Supabase (managed)
+
+Environment Management: .env.local + Supabase dashboard
+
+Tooling
+
+IDE: VS Code + Cursor AI plugin
+
+Documentation: Markdown (.mdc) docs, generated via CodeGuide
+
+Design System: Figma (optional)
+
+Package Manager: pnpm
+
+APIs & External Services
+
+YouTube Data API: Video title, duration, thumbnail fetch
+
+GitHub: Version control and CI triggers (via Vercel) 

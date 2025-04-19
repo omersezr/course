@@ -1,0 +1,66 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# rfc-008-reporting-dashboard.mdc
+
+## Title
+RFC 008 – Reporting & Analytics Dashboard
+
+## Summary
+This RFC outlines the structure and components of an analytics dashboard designed for Admin and Team Lead roles. It provides insight into platform usage, video/course performance, and user activity.
+
+---
+
+## Goals
+- Track video/course engagement metrics
+- Show completion stats per user and per course
+- Identify inactive or low-engagement users/content
+
+## Metrics to Display
+### For Admin
+- 📊 Top 10 Most Viewed Videos
+- 📈 Course Completion Rate (overall and per course)
+- 🧍‍♂️ Most Active Users (based on watch logs)
+- 🚨 Incomplete Mandatory Courses (with approaching deadlines)
+
+### For Team Lead
+- 📊 Completion stats for own team
+- 📉 Least completed courses by team
+- 🕒 Average time to complete a course
+
+## Database Views / Aggregations
+### SQL Views (suggested)
+- `view_video_stats` → video_id, total_views, avg_watch_time
+- `view_course_stats` → course_id, completion_rate, avg_duration
+- `view_user_engagement` → user_id, total_watch_time, last_activity
+- `view_incomplete_mandatory` → user_id, course_id, deadline, days_remaining
+
+## UI Components
+- Admin/Lead Dashboard route: `/admin/analytics` or `/team/analytics`
+- Cards with stats summary (e.g. charts, numbers)
+- Tables for detailed listings
+- Filters by team, date, course, etc.
+
+## Permissions
+| Role        | Permissions                            |
+|-------------|-----------------------------------------|
+| Admin       | View all analytics                     |
+| Team Lead   | View only analytics of own team        |
+| User        | ❌ No access                            |
+
+## Timeline
+**Sprint 8**
+- Define SQL views and test queries
+- Build dashboard UI with chart and table components
+- Integrate with `watch_logs`, `courses`, `assignments`
+- Implement filters and role-based access
+
+## Status
+📌 `Planned`
+
+## Related Docs
+- `rfc-004-watch-tracking.mdc`
+- `rfc-003-course-assignment.mdc`
+- `cursor_project_rules.mdc` 

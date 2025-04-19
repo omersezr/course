@@ -1,0 +1,61 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# rfc-011-category-enhancements.mdc
+
+## Title
+RFC 011 – Category Enhancements & Organizational Improvements
+
+## Summary
+This RFC introduces improvements to the category system for better video organization, user navigation, and admin control. Enhancements include custom ordering, category-level metadata, and carousel management.
+
+---
+
+## Goals
+- Allow custom ordering of categories and their displayed videos
+- Add descriptive metadata and links to each category
+- Manage homepage carousel display for each category
+
+## Database Extensions
+### `categories` Table
+Add fields:
+- `order_index` (int, nullable): Custom display order
+- `description` (text, nullable): Rich category explanation
+- `topic_link` (text, nullable): External resource URL (e.g. Wikipedia, Docs)
+- `helpful_links` (jsonb, nullable): Additional useful links
+- `show_in_carousel` (boolean, default false): Whether to show on homepage slider
+- `carousel_order` (int, nullable): Ordering on homepage carousel
+
+### `videos` Table
+- `category_order_index` (int, nullable): Ordering of videos within a category
+
+## UI Enhancements
+- Admin panel form for managing:
+  - Category description and topic link
+  - Helpful links (as an array or tag input)
+  - Enable/disable homepage carousel display
+  - Drag-and-drop sorting UI for carousel order
+
+## Permissions
+| Role        | Category Management        |
+|-------------|----------------------------|
+| Admin       | ✅ Full create/edit/delete |
+| Team Lead   | 🟡 View and suggest only   |
+| User        | ❌ No access               |
+
+## Timeline
+**Sprint 11**
+- Update database schema with new fields
+- Build UI form and inputs in Admin dashboard
+- Implement drag-and-drop sorting for carousel
+- Integrate fields into video/category creation workflows
+
+## Status
+📌 `Planned`
+
+## Related Docs
+- `rfc-002-video-management.mdc`
+- `rfc-009-video-recommendation.mdc`
+- `cursor_project_rules.mdc` 

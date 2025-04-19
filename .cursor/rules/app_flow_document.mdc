@@ -1,0 +1,132 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+User Flows Overview
+
+This document outlines the core user journeys within the educational video platform. Each role interacts with the system differently and has access to different features based on permissions. These flows are essential to define application behavior, UI layout, and API endpoints.
+
+1. User Flow (Registered User)
+
+Role: User
+
+Actions:
+
+Sign up or log in
+
+View dashboard with assigned courses and videos
+
+View video categories and search/filter content
+
+Watch videos and see preview/description
+
+Track personal progress for each video/course
+
+Read attached course documents
+
+Leave comments on videos (if enabled)
+
+Screens:
+
+Login / Register
+
+Dashboard
+
+Video listing by category
+
+Video detail (with YouTube embed, transcript, related videos)
+
+Course detail (with video list and progress)
+
+My Progress page
+
+2. Admin Flow
+
+Role: Admin
+
+Actions:
+
+Manage users and assign roles (Admin, Team Lead, User, Guest)
+
+Add/edit/delete videos and courses
+
+Assign videos or courses to users (individually or bulk)
+
+Create and update categories, tags, and carousel order
+
+Monitor user progress and access stats
+
+Moderate comments
+
+Screens:
+
+Admin Dashboard
+
+User Management
+
+Video Management
+
+Course Management
+
+Assignment Panel
+
+Analytics Panel
+
+3. Team Lead Flow
+
+Role: Team Lead
+
+Actions:
+
+Create new courses from available videos
+
+Assign existing videos/courses to users
+
+View team members' progress
+
+Filter and search content
+
+Screens:
+
+Team Dashboard
+
+Course Builder
+
+Assignment Manager
+
+Progress Overview
+
+4. Guest Flow
+
+Role: Guest
+
+Actions:
+
+Browse public videos and categories (limited)
+
+View basic details and preview of some content
+
+Sign up prompt on restricted actions (e.g. full watch, comments)
+
+Screens:
+
+Home (public)
+
+Category Explorer (limited content)
+
+Video preview modal or page
+
+Sign up / Login CTA
+
+Notes
+
+All user journeys assume responsive UI and accessibility compliance.
+
+Guest experience is designed to encourage registration.
+
+All role permissions align with RBAC definitions in the backend structure document.
+
+Summary
+
+This flow specification will be used to design both the frontend components and backend APIs. Each action corresponds to at least one API endpoint, and the UI/UX will be designed around these flows for clarity and ease of use. 

@@ -1,0 +1,74 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# rfc-012-transcript-support.mdc
+
+## Title
+RFC 012 – Video Transcript Display Support
+
+## Summary
+This RFC defines the implementation of a transcript system where video transcripts can be uploaded, stored, and displayed alongside the video detail page. This enhances accessibility, SEO, and user engagement. Additionally, transcripts may be used for generating summaries, documentation, or for users who want to learn without watching the full video.
+
+---
+
+## Goals
+- Allow video transcripts to be attached and displayed per video
+- Store transcripts as plain text or rich markdown
+- Provide downloadable transcripts for post-viewing or summary generation
+- Improve accessibility, comprehension and documentation capability
+
+## Storage Strategy
+- Transcripts stored as `.txt` or markdown in a new field in the `videos` table
+- Alternatively, external transcript files can be uploaded (e.g. `.txt` or `.md`)
+- Optional integration with future auto-transcription services (e.g., Whisper)
+
+### `videos` Table Extension
+Add field:
+- `transcript` (text, nullable): Raw or formatted transcript content
+- `transcript_file_url` (text, nullable): Link to downloadable transcript file
+
+## UI Integration
+- On video detail page:
+  - Add a collapsible "Transcript" section below the video
+  - Show content as rendered markdown or plain paragraph
+  - Include a **"Download Transcript"** button if file is present
+
+> ℹ️ The following features are planned for Phase 2:
+> - 🧠 "Summarize this transcript"
+> - 📄 "Create a document based on this transcript"
+> - AI-driven learning and documentation support based on transcripts
+
+## Upload Workflow
+- Admin or Team Lead can paste or upload transcript via Admin panel
+- Markdown editor component (same as used in document system)
+- `.txt` transcript files can be uploaded and linked
+
+## Permissions
+| Role        | Transcript Upload/View        |
+|-------------|-------------------------------|
+| Admin       | ✅ Upload + View              |
+| Team Lead   | ✅ Upload + View              |
+| User        | ✅ View + Download           |
+| Guest       | ✅ View (optional)            |
+
+## Timeline
+**Sprint 12**
+- Extend database with `transcript` and `transcript_file_url` fields
+- Build markdown-enabled editor and file upload option in admin panel
+- Render transcript content under each video
+- Add download option
+
+**Phase 2**
+- Implement AI interactions for summary and document generation based on transcript content
+
+## Status
+📌 `Planned`
+
+## Related Docs
+- `rfc-002-video-management.mdc`
+- `rfc-005-document-system.mdc`
+- `cursor_project_rules.mdc`
+- `features.mdc`
+- `implementation_plan.mdc` 

@@ -1,0 +1,70 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# frontend_guidelines_document.mdc
+
+## Overview
+This document defines the design and development standards for the frontend of the educational video management system. It ensures UI consistency, modularity, responsiveness, and developer productivity.
+
+---
+
+## 1. UI Design Principles
+- **Design System**: Consistent use of spacing, font sizes, border radii, and shadow presets
+- **Visual Hierarchy**: Clear headings, sectioning, and call-to-actions
+- **Accessibility**: WCAG 2.1 compliant, keyboard navigation, alt texts for images
+- **Dark Mode Support**: All components should support light/dark themes using `dark:` utility classes in Tailwind
+
+---
+
+## 2. Component Guidelines
+- **Library**: shadcn/ui (uses Radix + Tailwind)
+- **Component Folder Structure**: Group by feature (e.g., `components/course/`, `components/video/`)
+- **Reusability**: Prefer generic components and wrap them with feature-specific logic
+- **Atomic Design**: Follow atoms, molecules, organisms layering where feasible
+- **Icons**: Use Lucide (React icon library)
+
+---
+
+## 3. Styling Standards
+- **Primary Styling**: Tailwind CSS utility-first classes
+- **Custom Styles**: Use SCSS modules only for complex overrides
+- **Naming Convention**: Use PascalCase for components, camelCase for variables
+- **Theme Tokens**: Store primary colors, spacing, fontSize, shadows in Tailwind config
+
+---
+
+## 4. Layout System
+- **Grid System**: Use CSS Grid or Flexbox based on layout need
+- **Spacing Scale**: Always use Tailwind's spacing units (`p-2`, `m-4`, etc.)
+- **Container Widths**: Define breakpoints for mobile/tablet/desktop via Tailwind
+
+---
+
+## 5. Responsiveness & UX
+- **Mobile First**: Layout and components must render correctly on mobile
+- **Component Collapse**: Use dropdowns, tabs, or sliders for smaller viewports
+- **Loading States**: Skeleton loaders or spinners required for all async views
+- **Empty States**: All views must have fallback/empty data indicators
+
+---
+
+## 6. Page Patterns
+- **Video Listing**: Card-based layout with title, thumbnail, tags
+- **Course Detail**: Progress bar, ordered video list, course metadata
+- **Video Watch Page**: YouTube embed, transcript panel, notes/comments section
+- **Document Page**: Markdown viewer with sidebar navigation (optional)
+
+---
+
+## 7. Form UI Guidelines
+- Use React Hook Form with Zod schema validation
+- Display field-level validation errors inline
+- Disable submit button until form is valid
+- Use modal/dialogs for course creation, video assignments, etc.
+
+---
+
+## Summary
+These frontend guidelines aim to streamline development, enforce consistency across components, and ensure responsiveness and accessibility. By aligning with Tailwind and shadcn/ui conventions, we reduce friction and make the UI easy to scale. 

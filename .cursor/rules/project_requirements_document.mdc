@@ -1,0 +1,64 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# project_requirements_document.mdc
+
+## 1. Project Title
+**E-Learn Portal** — Modular Video Education Platform
+
+## 2. Purpose & Vision
+The purpose of this project is to transform a previously embedded video education module from an e-commerce platform into a standalone, scalable learning management system (LMS) similar to Udemy. The system empowers organizations to create, assign, and track educational video content for employees, partners, or customers.
+
+**Vision:** To create a centralized and user-friendly video-based learning environment with course structures, assignments, progress tracking, and interactive documentation support.
+
+## 3. Target Users & Roles
+- **Admin:** System owner with full access to user/role management, content, and system settings.
+- **Team Lead:** Can create courses, manage team-specific content, assign content to users.
+- **User:** Consumes assigned content, tracks progress, interacts with videos and documents.
+- **Guest:** Limited access to preview content, encouraged to register for full access.
+
+## 4. Core Features (Functional Scope)
+- Authentication & Role-Based Access
+- Video Management (YouTube-based)
+- Course Creation & Management
+- Video/Course Assignment to Users
+- Video Watch Tracking & Progress Calculation
+- Markdown-Based Document System (Notion-like)
+- Notification System for Assignments
+- Search & Filter by Category, Tag, Title
+- Admin Panel for User, Role, Content Management
+
+## 5. Functional Requirements
+- Users must be able to sign up, log in, and manage their profile
+- Admins can assign roles to users and revoke access
+- Team Leads can create/edit courses and assign them
+- Users can see only their own assigned courses and progress
+- Videos must support metadata: title, duration, category, tags, YouTube URL
+- Documents can be attached to courses or be standalone
+
+## 6. Non-Functional Requirements
+- The system must support responsive design (mobile/tablet/desktop)
+- Must use secure authentication and RLS for database access
+- System uptime: 99.5% availability for production deployment
+- Dark mode must be supported
+- Pages must load under 2s on average internet
+- Localization-ready structure for future i18n support
+
+## 7. Security & Privacy
+- Supabase Auth for secure identity
+- JWT session handling
+- RLS enforced access rules
+- Only Admins can view/edit all user data
+- Guests have read-only access to public content
+
+## 8. Success Criteria
+- MVP delivered within 6 weeks
+- Users can register, consume content, and complete assignments
+- Admin can fully manage users and courses from panel
+- Courses show real-time progress and completion
+- Feedback and bug reports are addressable within 48 hours
+
+## Summary
+This PRD sets the foundation for the project's technical and business alignment. All derived features and implementation strategies must adhere to this vision unless justified via RFC. It serves as a north star reference for Cursor Agent, developers, and stakeholders. 

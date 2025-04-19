@@ -1,0 +1,89 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# rfc-001-authentication.mdc
+
+## Title
+RFC 001 – Authentication & Role Assignment
+
+## Summary
+This RFC outlines the implementation details for the authentication system of the educational video platform, including user registration, login, JWT session handling, and post-registration role assignment.
+
+---
+
+## Goals
+- Secure user authentication
+- Support both email/password and magic link login
+- Basic role assignment after signup (default: `User`)
+- Role elevation (to `Team Lead` or `Admin`) managed by Admin
+
+## Supabase Auth Setup
+- **Auth Provider**: Supabase built-in auth
+- **Login Methods**:
+  - Email + Password (primary)
+  - Magic Link (optional/phase 2)
+- **Session**: JWT-based (stored in localStorage/cookies via Supabase client SDK)
+
+## Tables
+### `profiles`
+Custom user data is stored here (linked to Supabase `auth.users`)
+| Field         | Type      | Description                     |
+|---------------|-----------|---------------------------------|
+| id            | uuid      | PK (matches auth.users.id)      |
+| email         | text      | Redundant for easy access       |
+| role          | text      | ENUM: 'admin', 'team-lead', 'user', 'guest' |
+| created_at    | timestamp |                                |
+
+### `roles`
+Static lookup table (optional)
+| Role        |
+|-------------|
+| admin       |
+| team-lead   |
+| user        |
+| guest       |
+
+## Role Logic
+- On registration, all users are inserted into `profiles` with role = `user`
+- Admin can elevate a user's role via Admin Panel
+- Guest access is handled via public routes (not logged in)
+- Supabase Row-Level Security (RLS) policies control access to data based on role
+
+## Frontend Integration
+- Use Supabase client SDK for auth methods
+- On successful login/register:
+  - Fetch profile via RPC or `select * from profiles where id = user.id`
+  - Store session in localStorage using Supabase methods
+- Provide client-side context for role and session state
+
+## API Endpoints (if needed)
+- `/api/auth/profile` → Returns full user profile from Supabase
+- `/api/auth/role/update` → (Admin only) Update role of a user
+
+## UI Elements
+- Login/Register Page
+- Role-based route guards (Admin Panel, Course Builder, etc.)
+- Toast notifications on login/register failure
+
+## Security
+- Enforce HTTPS
+- Supabase RLS on all sensitive tables
+- Passwords handled by Supabase (not stored locally)
+
+## Timeline
+**Sprint 1**
+- Setup Supabase project and connect to frontend
+- Create `profiles` table and seed roles
+- Implement login/register forms
+- Implement role-based frontend layout loading
+
+## Status
+📌 `Approved` – ready for development in Sprint 1
+
+## Related Documents
+- `project_requirements_document.mdc`
+- `backend_structure_document.mdc`
+- `app_flow_document.mdc`
+- `cursor_project_rules.mdc` 

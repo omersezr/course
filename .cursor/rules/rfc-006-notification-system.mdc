@@ -1,0 +1,65 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# rfc-006-notification-system.mdc
+
+## Title
+RFC 006 – Notification & Reminder System
+
+## Summary
+This RFC introduces a notification system that alerts users about new video or course assignments and sends reminders for pending or incomplete content. The system will improve user engagement and timely content completion.
+
+---
+
+## Goals
+- Notify users upon new assignments (videos/courses)
+- Schedule reminders for incomplete mandatory content
+- Support in-app and optional email notifications (Phase 2)
+
+## Database Tables
+### `notifications`
+| Field         | Type      | Description                              |
+|---------------|-----------|------------------------------------------|
+| id            | uuid      | Primary key                              |
+| user_id       | uuid      | Recipient user ID                        |
+| type          | text      | ENUM: 'assignment', 'reminder'           |
+| related_id    | uuid      | FK to course/video (nullable)            |
+| message       | text      | Notification text                        |
+| is_read       | boolean   | Whether the user has seen it             |
+| created_at    | timestamp | Timestamp                                |
+
+## Trigger Logic
+- On assignment (video/course) → insert new `assignment` notification
+- On scheduled cron job (e.g., daily) → check incomplete progress for required courses → insert `reminder` notifications
+
+## Frontend Integration
+- Notification bell icon in navbar
+- Dropdown list with latest notifications
+- Mark as read/unread toggle
+- Optional: Badge counter on bell icon
+
+## Permissions
+- Admin/Team Lead: See delivery reports (Phase 2)
+- User: See own notifications
+- Guest: No access
+
+## Future Enhancements
+- Email or push notifications (via Supabase Edge Functions or external provider)
+- Notification preferences per user
+
+## Timeline
+**Sprint 6**
+- Create `notifications` table
+- Add logic for assignment-triggered alerts
+- Setup background job (daily CRON or Supabase Edge Function)
+- Implement frontend dropdown UI
+
+## Status
+📌 `Planned`
+
+## Related Docs
+- `rfc-003-course-assignment.mdc`
+- `rfc-004-watch-tracking.mdc`
+- `features.mdc` 

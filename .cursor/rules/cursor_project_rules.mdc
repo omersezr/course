@@ -1,0 +1,102 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# cursor_project_rules.mdc
+
+## Global Project Rules
+These rules define global standards, patterns, and behavior expectations for the AI when generating or modifying project files. All features should align with these rules unless otherwise overridden in a specific RFC.
+
+---
+
+## 🧱 General Architecture Rules
+- Project follows a **modular monolith** architecture using **Next.js API Routes**.
+- All features must be implemented as **feature-based folders**.
+- Authentication and user sessions are handled by **Supabase Auth**.
+- PostgreSQL is used as the database with **Row-Level Security (RLS)** enabled.
+- API communication follows **REST** conventions.
+
+---
+
+## 🧑‍💻 Coding Standards
+- Use PascalCase for class names and camelCase for variables.
+- Include comments for non-trivial logic.
+- Group files per feature: `/features/{name}/{type}.ts`
+- Avoid writing business logic in controllers (API handlers).
+
+---
+
+## 📂 Folder Structure Conventions
+- Each feature lives under `/features/{feature-name}`
+- Shared logic goes into `/lib`, `/utils`, `/types`
+- UI components in `/components` or `/features/{feature}/components`
+
+---
+
+## ✅ Required Behaviors (Feature Rules)
+
+### 🔐 Authentication
+- All users are authenticated via Supabase.
+- Upon registration, users receive the default role of `user`.
+- Role escalation (to `admin`, `team-lead`) is controlled by Admin panel.
+
+### 🎬 Video Management
+- Videos are added via YouTube URL.
+- Use YouTube API to fetch title, duration, and thumbnail.
+- Videos must support tags and categories.
+- Video metadata is validated before insertion.
+
+### 📚 Course Management
+- Courses are made of ordered video sequences.
+- A course can be marked as `isMandatory` and can include a `deadline`.
+- Admin or Team Lead can assign courses to users.
+
+### ⏱️ Watch Tracking
+- Video playback progress must be logged per user.
+- A video is marked completed if 90% of it is watched.
+- Course progress is computed based on completed videos.
+
+### 🔔 Notification System
+- New video/course assignments generate a notification.
+- Notifications are stored in `notifications` table and shown in navbar.
+- Reminders are triggered via scheduled background jobs.
+
+### 🗓️ Mandatory Courses & Deadlines
+- Each course may define a `deadline` field (timestamp).
+- If a course is not completed before deadline, it triggers a dashboard warning and a notification.
+- Deadline logic is enforced in backend.
+
+### 💬 Comments & Feedback
+- Users can comment on each video.
+- Comments are stored in a `comments` table.
+- Users can mark feedback as: `useful`, `incomplete`, `incorrect`.
+- Admin and Team Lead can delete comments.
+
+### 📈 Reporting & Analytics (Planned)
+- Admin dashboard will include stats:
+  - Most viewed videos
+  - Completion rate per user
+  - Incomplete mandatory content
+- Data source will be SQL views or backend aggregations.
+
+### 🤖 Video Recommendation (Planned)
+- On video or category creation, YouTube API will suggest top 5 related videos.
+- Used for improving content discovery and admin workflow.
+
+### 📊 YouTube Insight Data (Planned)
+- View count and basic statistics will be fetched via YouTube Data API.
+- Displayed on video detail page.
+
+---
+
+## 📋 Implementation Guidelines
+- Each major feature must be backed by an RFC document.
+- Implementations should strictly follow the RFC's database + API + UI specs.
+- Tests must be included for all backend services.
+- Avoid speculative features unless included in roadmap or approved via RFC.
+
+---
+
+## ✅ Status
+Up to date ✅ – includes sprint 1–6 foundational rules and future enhancements. 

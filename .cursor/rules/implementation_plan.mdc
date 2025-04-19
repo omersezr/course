@@ -1,0 +1,77 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# implementation_plan.mdc
+
+## Implementation Plan (Sprint-Based)
+
+### ✅ Sprint 1: Authentication & Roles
+- Implement Supabase Auth integration
+- Role management: Admin, Team Lead, User, Guest
+- Secure routes with RLS and middleware
+
+### ✅ Sprint 2: Basic Video Management
+- `videos` table creation
+- Upload & embed YouTube videos
+- Admin panel for video CRUD
+
+### ✅ Sprint 3: Category Management
+- `categories` table creation
+- Assign categories to videos
+- Filter videos by category
+
+### ✅ Sprint 4: Video Assignment System
+- `video_assignments` table
+- Admin & TL can assign videos to users
+- Assignment tracking logic
+- 🔔 Trigger both in-app notification and email on assignment
+
+### ✅ Sprint 5: Course System
+- `courses` table and `course_assignments`
+- Add videos to courses
+- Track course progress
+- 🔔 Notify users via in-app and email
+
+### ✅ Sprint 6: Watch Tracking
+- `watch_logs` table
+- Track duration watched per video
+- Mark video/course as completed
+
+### ✅ Sprint 7: Comment & Feedback System (RFC 007)
+- `comments` table
+- Enable user comments and feedback type
+- Moderation and role-based delete
+
+### ✅ Sprint 8: Reporting Dashboard (RFC 008)
+- SQL views for stats: top videos, completion rate, etc.
+- Admin/Team Lead dashboard UI
+
+### ✅ Sprint 9: Video Recommendation (RFC 009)
+- YouTube API integration
+- Suggest 5 videos based on keywords or category
+- Show in video/category creation modals
+
+### ✅ Sprint 10: YouTube Insights (RFC 010)
+- Fetch viewCount, likeCount via YouTube API
+- Store in `videos` table
+- Display under video player
+
+### ✅ Sprint 11: Category Enhancements (RFC 011)
+- Add `description`, `topic_link`, `helpful_links`, `carousel_order`
+- Admin UI to manage ordering & content
+
+### ✅ Sprint 12: Transcript Support (RFC 012)
+- Upload `.txt` or markdown transcripts
+- Display in collapsible panel
+- Add `transcript` and `transcript_file_url` to `videos`
+
+### 🟡 Phase 2 (Post-MVP Enhancements)
+- AI Summary from Transcript
+- Generate Document from Transcript
+- Notion-style AI tools based on transcript text
+
+---
+
+This plan ensures each sprint is focused and builds incrementally toward a robust learning platform. 

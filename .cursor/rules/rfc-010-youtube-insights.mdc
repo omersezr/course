@@ -1,0 +1,72 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# rfc-010-youtube-insights.mdc
+
+## Title
+RFC 010 – YouTube Video Insights Integration
+
+## Summary
+This RFC outlines how to retrieve and display YouTube engagement metrics (view count, like count, etc.) for each embedded video in the platform. The goal is to inform admins and users about the popularity and trustworthiness of video content.
+
+---
+
+## Goals
+- Fetch real-time view counts, like counts from YouTube Data API
+- Display insights on video detail pages
+- Help admins evaluate content quality based on public engagement
+
+## API Details
+- **YouTube Data API v3**
+- Endpoint: `https://www.googleapis.com/youtube/v3/videos`
+- Required Parameters: `part=statistics`, `id={videoId}`, `key=API_KEY`
+- Returned Fields:
+  - `viewCount`
+  - `likeCount`
+  - `commentCount`
+
+## Database Extension
+### `videos` Table
+Add optional cache columns:
+- `view_count` (int, nullable)
+- `like_count` (int, nullable)
+- `comment_count` (int, nullable)
+- `insights_updated_at` (timestamp, nullable)
+
+## UI Integration
+- Insights shown in the video detail page
+- Displayed in a compact stats section under video player:
+  - 👁️ Views
+  - 👍 Likes
+  - 💬 Comments (if available)
+- Tooltip explaining data comes from YouTube
+
+## Update Strategy
+- On video creation: fetch insights immediately
+- Scheduled update: every 7 days (cron job or Supabase Edge Function)
+
+## Permissions
+| Role        | Insights View Permission        |
+|-------------|---------------------------------|
+| Admin       | ✅ Full access                   |
+| Team Lead   | ✅ Full access                   |
+| User        | ✅ Can view                      |
+| Guest       | ✅ Can view (optional UI toggle) |
+
+## Timeline
+**Sprint 10**
+- Implement insights fetch logic using video ID
+- Store values in `videos` table
+- Display insights in UI with loading and fallback states
+- Extend `videos` table with `comment_count` and auto-refresh mechanism
+
+## Status
+📌 `Planned`
+
+## Related Docs
+- `rfc-002-video-management.mdc`
+- `rfc-009-video-recommendation.mdc`
+- `cursor_project_rules.mdc`
+- `implementation_plan.mdc` 

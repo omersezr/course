@@ -1,0 +1,81 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# rfc-002-video-management.mdc
+
+## Title
+RFC 002 – Video Management (YouTube-Based)
+
+## Summary
+This RFC outlines the structure and implementation of the video management system for the platform. It focuses on YouTube video embedding, metadata storage, category/tagging, and basic CRUD operations.
+
+---
+
+## Goals
+- Add videos via YouTube URL
+- Automatically fetch metadata: title, duration, thumbnail
+- Enable categorization and tagging of videos
+- Display videos in a responsive card layout with preview support
+
+## Database Tables
+### `videos`
+| Field         | Type      | Description                       |
+|---------------|-----------|-----------------------------------|
+| id            | uuid      | Primary key                       |
+| title         | text      | Video title                       |
+| description   | text      | Optional description              |
+| youtube_url   | text      | Full YouTube URL                  |
+| youtube_id    | text      | Extracted YouTube video ID        |
+| duration      | interval  | Video length                      |
+| thumbnail     | text      | YouTube thumbnail URL             |
+| category_id   | uuid      | Foreign key to `categories`       |
+| tags          | text[]    | Array of tags                     |
+| created_by    | uuid      | User ID who added the video       |
+| created_at    | timestamp | Timestamp                         |
+
+### `categories`
+| Field       | Type    | Description            |
+|-------------|---------|------------------------|
+| id          | uuid    | Primary key            |
+| name        | text    | Category name          |
+| description | text    | Optional detail        |
+| order       | int     | Carousel sort order    |
+
+## API Integration
+- Use YouTube Data API v3 to fetch:
+  - title
+  - duration
+  - thumbnail
+
+## Frontend Implementation
+- Add video modal (Team Lead / Admin only)
+- YouTube preview iframe embed
+- Display grid of video cards (responsive, with filters)
+- Category carousel component on homepage
+
+## Role Permissions
+- Admin: Full video CRUD
+- Team Lead: Create/update videos
+- User: View assigned/public videos
+- Guest: View limited preview
+
+## Validation
+- Only valid YouTube URLs allowed
+- Prevent duplicate YouTube IDs
+- All required metadata must be available
+
+## Timeline
+**Sprint 2**
+- Setup `videos` and `categories` tables
+- Integrate YouTube API
+- Implement video creation and list UI
+
+## Status
+📌 `Planned`
+
+## Related Documents
+- `features.mdc`
+- `project_requirements_document.mdc`
+- `app_flow_document.mdc` 

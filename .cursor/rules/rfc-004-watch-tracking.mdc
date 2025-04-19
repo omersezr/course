@@ -1,0 +1,66 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# rfc-004-watch-tracking.mdc
+
+## Title
+RFC 004 – Video Watch Tracking & Progress
+
+## Summary
+This RFC defines the mechanism for tracking users' video viewing activity and calculating their progress across courses. It enables fine-grained progress tracking and visibility for users, team leads, and admins.
+
+---
+
+## Goals
+- Log watch duration per video and user
+- Mark videos as completed when fully watched
+- Use watch logs to calculate course progress
+- Display real-time progress indicators in UI
+
+## Database Tables
+### `watch_logs`
+| Field        | Type      | Description                        |
+|--------------|-----------|------------------------------------|
+| id           | uuid      | Primary key                        |
+| user_id      | uuid      | FK to profiles                     |
+| video_id     | uuid      | FK to videos                       |
+| watched_time | interval  | Duration of time watched           |
+| completed    | boolean   | Whether the video is completed     |
+| updated_at   | timestamp | Last updated                       |
+
+## Frontend Behavior
+- Automatically log video watch activity using JS events
+- Update watched duration in intervals (e.g., every 30s)
+- Mark video as complete when duration >= 90% of total length
+- Show completion checkmark and progress bar
+- Course progress = completed videos / total videos
+
+## Role Visibility
+- **User**: Sees own progress
+- **Team Lead/Admin**: View progress of assigned users
+- **Guest**: No tracking
+
+## UX Elements
+- Progress bar in course cards and course detail
+- Checkmarks on completed videos
+- Resume where you left off (optional Phase 2)
+
+## Validation Rules
+- Prevent fake progress updates (e.g., skipping entire video)
+- Backend must verify total duration vs watched duration
+
+## Timeline
+**Sprint 4**
+- Create `watch_logs` table
+- Add client-side tracking logic with debounced API calls
+- Implement progress calculation per course
+
+## Status
+📌 `Planned`
+
+## Related Docs
+- `rfc-003-course-assignment.mdc`
+- `app_flow_document.mdc`
+- `cursor_project_rules.mdc` 
